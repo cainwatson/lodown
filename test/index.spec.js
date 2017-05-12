@@ -25,4 +25,64 @@ describe('lodown', function() {
             }
         });
     });
+    
+    describe('identity', function() {
+       it('expect argument passed to equal value returned', function() {
+           const ar = [];
+           expect(lodown.identity(1)).to.equal(1);
+           expect(lodown.identity(ar)).to.eql(ar);
+       });
+    });
+    
+    describe('typeOf', function() {
+        it('expect to pass the type of the value passed as a string', function() {
+          expect(lodown.typeOf(1)).to.equal('number'); 
+          expect(lodown.typeOf('')).to.equal('string'); 
+          expect(lodown.typeOf([])).to.equal('array'); 
+          expect(lodown.typeOf({})).to.equal('object'); 
+          expect(lodown.typeOf(function() {})).to.equal('function'); 
+          expect(lodown.typeOf(undefined)).to.equal('undefined'); 
+          expect(lodown.typeOf(null)).to.equal('null'); 
+            
+        });
+    });
+    
+    describe('first', function() {
+        it('expect to return the first number of elements in the array', function() {
+            expect(lodown.first([1, 2, 3], 1)).to.equal(1);
+            expect(lodown.first([1, 2, 3], 2)).to.eql([1, 2]);
+            expect(lodown.first([1, 2, 3], NaN)).to.equal(1);
+            expect(lodown.first([1, 2, 3])).to.equal(1);
+            expect(lodown.first([1, 2, 3], 4)).to.eql([]);
+            expect(lodown.first(1, 1)).to.eql([]);
+            
+        }); 
+    });
+    
+    describe('last', function() {
+        it('expect to return the last number of elements in the array', function() {
+            expect(lodown.last([1, 2, 3], 1)).to.equal(3);
+            expect(lodown.last([1, 2, 3], 2)).to.eql([2, 3]);
+            expect(lodown.last([1, 2, 3], NaN)).to.equal(3);
+            expect(lodown.last([1, 2, 3])).to.equal(3);
+            expect(lodown.last([1, 2, 3], 4)).to.eql([]);
+            expect(lodown.last(1, 1)).to.eql([]);
+            
+        }); 
+    });
+    
+    describe('each', function() {
+      it('expect function be called over each iteration of a collection\'s items', function() {
+          expect(lodown.each([]), function(e, i, a) { }).to.eql();
+      });
+    });
+    
+    describe('indexOf', function() {
+      it('expect to return the index of value in array; if value is not in array or there is no array, return -1', function() {
+         expect(lodown.indexOf([0, 1, 2], 1)).to.equal(1);
+         expect(lodown.indexOf(['a', 'b', 'c'], 'c')).to.equal(2);
+         expect(lodown.indexOf([0, 1, 2], 4)).to.equal(-1); 
+         expect(lodown.indexOf(1, 1)).to.equal(-1); 
+      });
+    });
 });
